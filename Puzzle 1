@@ -1,0 +1,20 @@
+import pandas as pd
+dept_data = pd.read_csv('/DepartmentData.csv')
+emp_data = pd.read_csv('/EmployeeData.csv')
+emp_data['total_salary'] = emp_data['base_salary'] + emp_data['bonus']
+
+avg_salary = emp_data.groupby('department_id')['total_salary'].mean().reset_index()
+
+merged_data = pd.merge(avg_salary, dept_data, on='department_id')
+
+sorted_departments = merged_data.sort_values(by='total_salary', ascending=False)
+
+top_departments = sorted_departments['department_name'].str[0]
+
+print("Sorted\n")
+print(sorted_departments[['department_name', 'total_salary']])
+
+clue = "".join(top_departments.tolist())
+
+print("\nScooby-Doo clue:")
+print(clue)
