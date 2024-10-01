@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('/final_dataset.csv')
+
+df = df.dropna()
+plt.figure(figsize=(12, 8))
+plt.plot(df['x'], df['y'], marker='o', linestyle='-', color='purple', markersize=8, linewidth=2)
+plt.title('Meddling Kids Magic Lens: Mystery Coordinates Plot ', fontsize=16, fontweight='bold')
+plt.xlabel('X Coordinates (Mystical Realm)', fontsize=14)
+plt.ylabel('Y Coordinates (Spooky Vibes)', fontsize=14)
+
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.axhline(0, color='black', lw=0.8, ls='--')
+plt.axvline(0, color='black', lw=0.8, ls='--')
+
+plt.xlim(df['x'].min() - 50, df['x'].max() + 50)
+plt.ylim(df['y'].min() - 50, df['y'].max() + 50)
+
+for i in range(len(df)):
+    plt.annotate(f' {i}', (df['x'][i], df['y'][i]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=9)
+
+plt.legend(['Mystery Points'], fontsize=12)
+plt.tight_layout()
+plt.show()
